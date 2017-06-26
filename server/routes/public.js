@@ -1,4 +1,4 @@
-module.exports = function (app, express) {
+module.exports = function (app, express,io) {
     var router = express.Router();
 
     // we are here: /

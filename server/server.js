@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, '/../')));
 //parent as rootfolder, now: /server/server.js
 //app.set('views', path.join(__dirname, '/../'));
 //app.set('view engine', 'ejs');
-//app.engine('html', require('ejs').renderFile);
+app.engine('html', require('ejs').renderFile);
 
 // Body Parser MW
 app.use(bodyParser.json());
