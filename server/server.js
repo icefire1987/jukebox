@@ -16,7 +16,7 @@ var app = express();
 var server   = require('http').Server(app);
 
 var io       = require('socket.io')(server);
-var ioEvents = require('./lib/ioevents.js')(io);
+//var ioEvents = require('./lib/ioevents.js')(io);
 
 app.use(helmut());
 
