@@ -9,6 +9,7 @@ var bodyParser = require("body-parser");
 var helmut = require('helmet')
 
 var path = require('path');
+var Player = require('player');
 
 var port = 80;
 
@@ -39,7 +40,36 @@ app.use(function(req, res, next) {
     next();
 });
 
+const testFolder = '../';
+const fs = require('fs');
 
+fs.readdir(testFolder, (err, files) => {
+    files.forEach(file => {
+        console.log(file);
+    });
+})
+
+
+// create player instance
+var player = new Player();
+player.add('http://sampleswap.org/samples-ghost/MELODIC%20SAMPLES%20and%20LOOPS/SYNTH%20AND%20ELECTRONIC%20etcetera/10992[kb]pretty-teardrop-synth-melody.wav.mp3');
+player.play();
+// event: on playing
+player.on('playing',function(item){
+    console.log('im playing... src:' + item);
+});
+
+// event: on playend
+player.on('playend',function(item){
+    // return a playend item
+    console.log('src:' + item + ' play done, switching to next one ...');
+});
+
+// event: on error
+player.on('error', function(err){
+    // when error occurs
+    console.log(err);
+});
 
 var publicRoute = require('./routes/public')(app, express,io);
 var protectedRoute = require('./routes/protected')(app, express,io);
