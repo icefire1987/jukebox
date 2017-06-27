@@ -9,7 +9,6 @@ var bodyParser = require("body-parser");
 var helmut = require('helmet')
 
 var path = require('path');
-var Player = require('player');
 
 var port = 80;
 
@@ -40,7 +39,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-const testFolder = '../';
+const testFolder = '../../';
 const fs = require('fs');
 
 fs.readdir(testFolder, (err, files) => {
@@ -51,25 +50,18 @@ fs.readdir(testFolder, (err, files) => {
 
 
 // create player instance
-var player = new Player();
-player.add('http://sampleswap.org/samples-ghost/MELODIC%20SAMPLES%20and%20LOOPS/SYNTH%20AND%20ELECTRONIC%20etcetera/10992[kb]pretty-teardrop-synth-melody.wav.mp3');
-player.play();
-// event: on playing
-player.on('playing',function(item){
-    console.log('im playing... src:' + item);
+var MPlayer = require('mplayer');
+
+var player = new MPlayer();
+player.on('start', console.log.bind(this, 'playback started'));
+player.on('status', console.log);
+
+player.openPlaylist('http://www.miastomuzyki.pl/n/rmfclassic.pls', {
+    cache: 128,
+    cacheMin: 1
 });
 
-// event: on playend
-player.on('playend',function(item){
-    // return a playend item
-    console.log('src:' + item + ' play done, switching to next one ...');
-});
-
-// event: on error
-player.on('error', function(err){
-    // when error occurs
-    console.log(err);
-});
+setTimeout(player.volume.bind(player, 50), 1000);
 
 var publicRoute = require('./routes/public')(app, express,io);
 var protectedRoute = require('./routes/protected')(app, express,io);
