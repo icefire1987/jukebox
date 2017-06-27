@@ -7,10 +7,10 @@ var bodyParser = require("body-parser");
 
 
 var helmut = require('helmet')
-
+var fs = require('fs');
 var path = require('path');
 
-var port = 80;
+var port = 3001;
 
 var app = express();
 var server   = require('http').Server(app);
@@ -38,7 +38,7 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
     next();
 });
-
+/*
 const testFolder = '../../';
 const fs = require('fs');
 
@@ -47,28 +47,18 @@ fs.readdir(testFolder, (err, files) => {
         console.log(file);
     });
 })
-
-/*
-// create player instance
-var MPlayer = require('mplayer');
-
-var player = new MPlayer();
-player.on('start', console.log.bind(this, 'playback started'));
-player.on('status', console.log);
-
-player.openPlaylist('http://www.miastomuzyki.pl/n/rmfclassic.pls', {
-    cache: 128,
-    cacheMin: 1
-});
-
-setTimeout(player.volume.bind(player, 50), 1000);
 */
+
+
+
+
 var publicRoute = require('./routes/public')(app, express,io);
-var protectedRoute = require('./routes/protected')(app, express,io);
+var protectedRoute = require('./routes/protected')(app, express,fs);
+var playerRoute = require('./routes/player')(app, express,io);
 
-app.use('/', publicRoute);
+app.use('/player', playerRoute);
 app.use('/app', protectedRoute);
-
+app.use('/', publicRoute);
 server.listen(port, function(){
     console.log('Server started on port '+port);
 });
