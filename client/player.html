@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <title>PLAYER</title>
 </head>
-<body>
-<audio id="player" controls="controls">
-    <source id="mp3Source" type="audio/mp3">
-</audio>
+<body ng-app="myJukebox">
+<div ng-controller="playerCtrl as vm">
 
-<script src="http://127.0.0.1:8081/socket.io/socket.io.js"></script>
+    <h1>{{vm.title}}</h1>
+    {{vm.playlist}}
+</div>
+<script src="/client/node_modules/angular/angular.js"></script>
 <script src="/client/app.js"></script>
+<script src="http://localhost:3001/socket.io/socket.io.js"></script>
+
 </body>
 </html>

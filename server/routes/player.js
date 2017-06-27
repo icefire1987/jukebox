@@ -4,7 +4,10 @@ module.exports = function (app, express,io) {
     io.sockets.on('connection', function (socket) {
         console.log('connection established');
     });
-    // we are here: /
+    io.on('connection', function(socket){
+        console.log('a user connected');
+    });
+
     router.get('*', function (req, res, next) {
         console.log("player")
 
