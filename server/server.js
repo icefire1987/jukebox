@@ -48,7 +48,7 @@ fs.readdir(testFolder, (err, files) => {
     });
 })
 
-
+/*
 // create player instance
 var MPlayer = require('mplayer');
 
@@ -62,7 +62,7 @@ player.openPlaylist('http://www.miastomuzyki.pl/n/rmfclassic.pls', {
 });
 
 setTimeout(player.volume.bind(player, 50), 1000);
-
+*/
 var publicRoute = require('./routes/public')(app, express,io);
 var protectedRoute = require('./routes/protected')(app, express,io);
 
