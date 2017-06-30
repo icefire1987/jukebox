@@ -2,6 +2,8 @@ myJukebox.controller('playerCtrl', function(){
         var vm=this;
 
         vm.title =" JUKE-BOX";
+        vm.status = "";
+        vm.song = "";
         vm.player = document.getElementById('player');
 
 
@@ -14,7 +16,15 @@ myJukebox.controller('playerCtrl', function(){
         });
         vm.socket.on('message', function (data) {
             // HERE IS THE PROBLEM
-            console.log("message")
+            vm.status = data;
+        });
+
+        vm.socket.on('playNextSong', function(data){
+            console.log("song:" + data)
+            vm.song = data;
+            vm.player.src = '/server/'+data;
+            vm.player.play();
+
         });
 
 
@@ -22,6 +32,7 @@ myJukebox.controller('playerCtrl', function(){
             console.log("server sends stream")
             parts = [];
             stream.on('data', function(chunk){
+                console.log(data)
                 parts.push(chunk);
             });
             stream.on('end', function () {
@@ -33,6 +44,10 @@ myJukebox.controller('playerCtrl', function(){
         vm.askingForStream = function(){
             vm.socket.emit('askingForStream',{});
         };
+        vm.playNextSong = function(){
+            vm.socket.emit('getNextSong',{});
+        };
+
 
 
 

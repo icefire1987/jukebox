@@ -8,20 +8,21 @@
 <body ng-app="myJukebox">
 <div ng-controller="playerCtrl as vm">
     <md-content>
-    <h1>{{vm.title}}</h1>
+    <h1>{{vm.title}}</h1><i>{{vm.status}}</i>
     <div>
-        <audio id="player" controls>
+        <audio id="player">
             <source src="" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
     </div>
-        <div id="audioWrapper">
-
-        </div>
+      <h3>{{vm.song}}</h3>
 
     <div>
         <md-button class="md-primary md-raised" ng-click="vm.askingForStream()">
             Start
+        </md-button>
+        <md-button class="md-warning md-raised" ng-click="vm.playNextSong()">
+            Next
         </md-button>
     </div>
     </md-content>
