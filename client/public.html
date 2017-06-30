@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta content
     <title>PUBLIC</title>
 </head>
-<body>
+<body ng-app="myJukebox">
+<div ng-controller="publicCtrl as vm">
+
+    <h1>{{vm.title}}</h1>
+</div>
+
+<script src="/client/node_modules/angular/angular.js"></script>
+<script src="/client/app.js"></script>
+<script src="/client/publicCtrl.js"></script>
 
 </body>
 </html>

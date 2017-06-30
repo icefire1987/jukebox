@@ -54,11 +54,11 @@ fs.readdir(testFolder, (err, files) => {
 
 var publicRoute = require('./routes/public')(app, express,io);
 var protectedRoute = require('./routes/protected')(app, express,fs);
-var playerRoute = require('./routes/player')(app, express,io);
+var playerRoute = require('./routes/player')(app, express,io,fs,path);
 
 app.use('/player', playerRoute);
 app.use('/app', protectedRoute);
-app.use('/', publicRoute);
+app.use('/public', publicRoute);
 server.listen(port, function(){
     console.log('Server started on port '+port);
 });
